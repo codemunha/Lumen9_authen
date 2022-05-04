@@ -16,3 +16,9 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+$router->group(['prefix' => 'api/v1'], function ($router) {
+    // Users
+    $router->post('user/register', 'UserController@register');
+    $router->post('user/login', ['uses' => 'UserController@login']);
+});
