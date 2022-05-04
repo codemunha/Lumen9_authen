@@ -25,6 +25,17 @@ class UserController extends BaseController
     | Api สมัครสมาชิก
     |--------------------------------------------------------------------------
      */
+    public function MakeData(Request $request)
+    {
+        $user = Users::where('id', $request->auth->id)
+        ->first();
+        
+        return json_encode([
+            "status" => "success",
+            "data" =>  $user
+        ]);
+    }
+
     public function register(Request $request)
     {
         // validator
@@ -91,7 +102,7 @@ class UserController extends BaseController
             'exp' => time() + env('JWT_EXPIRE_HOUR') * 60 * 60, // Expiration time
         ];
 
-        return JWT::encode($payload, env('JWT_SECRET'),'HS256');
+        return JWT::encode($payload, env('JWT_SECRET'), 'HS256');
     }
 
     /*

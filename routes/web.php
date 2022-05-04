@@ -22,3 +22,8 @@ $router->group(['prefix' => 'api/v1'], function ($router) {
     $router->post('user/register', 'UserController@register');
     $router->post('user/login', ['uses' => 'UserController@login']);
 });
+
+$router->group(['prefix' => 'api/v1', 'middleware' => 'jwt.auth'], function ($router) {
+    $router->get('test', 'UserController@MakeData');
+
+});
